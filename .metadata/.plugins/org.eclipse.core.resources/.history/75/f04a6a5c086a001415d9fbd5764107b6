@@ -1,0 +1,93 @@
+package com.seniorproject.myassistant;
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+
+import android.content.ContentResolver;
+import android.content.Context;
+import android.database.Cursor;
+import android.net.ParseException;
+import android.net.Uri;
+import android.provider.CalendarContract;
+
+
+public class CalendarEventActivity {
+	
+	public static <GoogleCalendar> void readCalendarEvent(Context context) throws ParseException {
+
+        ContentResolver contentResolver = context.getContentResolver();
+        Calendar calendar = Calendar.getInstance();
+        String dtstart = "dtstart";
+        String dtend = "dtend";
+
+
+        SimpleDateFormat    displayFormatter = new SimpleDateFormat("MMMM dd, yyyy (EEEE)");
+
+         String stime = displayFormatter.format(calendar.getTime());     
+
+        SimpleDateFormat startFormatter = new SimpleDateFormat("MM/dd/yy");
+        String dateString = startFormatter.format(calendar.getTime());
+
+        long after = calendar.getTimeInMillis();
+        SimpleDateFormat formatterr = new SimpleDateFormat("hh:mm:ss MM/dd/yy");
+        Calendar endOfDay = Calendar.getInstance();
+        Date dateCCC = (Date) formatterr.parse("23:59:59 " + dateString);
+        endOfDay.setTime(dateCCC);
+
+
+
+
+
+
+    Cursor cursor = contentResolver.query(Uri.parse("content://com.android.calendar/events"), (new String[] { "calendar_id", "title", "description", "dtstart", "dtend","eventTimezone", "eventLocation" }), "(" + dtstart + ">" + after + " and " + dtend + "<" + endOfDay.getTimeInMillis() + ")", null, "dtstart ASC");
+
+
+        String[] COLS={"calendar_id", "title", "description", "dtstart", "dtend","eventTimezone", "eventLocation"};
+
+        cursor = contentResolver.query(CalendarContract.Events.CONTENT_URI, COLS,null, null, null);
+
+        ArrayList<GoogleCalendar> gCalendar = new ArrayList<GoogleCalendar>();
+        try {
+
+
+            if (cursor.getCount() > 0) {
+
+
+                while (cursor.moveToNext()) {
+                    GoogleCalendar googleCalendar; // = new GoogleCalendar();
+                    gCalendar.add(googleCalendar);
+                    int calendar_id = cursor.getInt(0);
+                    googleCalendar.setCalendar_id(calendar_id);
+                    String title = cursor.getString(1);
+                    googleCalendar.setTitle(title);
+                    String description = cursor.getString(2);
+                    googleCalendar.setDescription(description);
+                    String dtstart1 = cursor.getString(3);
+                     Object dt = convertDate(dtstart1,"hh:mm:ss");
+
+                    googleCalendar.setDtstart(dt);                  
+
+                String dtend1 = cursor.getString(4);
+                    googleCalendar.setDtend(dtend1);
+
+
+                    String eventTimeZone=cursor.getString(5);
+                    googleCalendar.setEventTimeZone(eventTimeZone);
+                    String eventlocation = cursor.getString(6);
+
+                    googleCalendar.setEventlocation(eventlocation);
+
+
+
+                }
+            }
+        } catch (AssertionError ex) {
+            ex.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+}

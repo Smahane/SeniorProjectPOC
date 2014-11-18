@@ -1,0 +1,48 @@
+package com.seniorproject.myassistant;
+
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.provider.CalendarContract;
+import android.widget.Button;
+
+public class CalendarEventActivity extends Activity implements OnClickListener {
+
+	private Cursor mCursor = null;
+	private static final String[] COLS = new String[] {
+			CalendarContract.Events.TITLE, CalendarContract.Events.DTSTART };
+
+	@Override
+	public void onClick(DialogInterface dialog, int which) {
+		// TODO Auto-generated method stub
+
+	}
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+	super.onCreate(savedInstanceState);
+	setContentView(R.layout.act);
+
+
+	mCursor = getContentResolver().query(
+
+
+	CalendarContract.Events.CONTENT_URI, COLS, null, null, null);
+	mCursor.moveToFirst();
+
+
+	Button b = (Button)findViewById(R.id.next);
+
+
+	b.setOnClickListener(this);
+	b = (Button)findViewById(R.id.previous);
+
+
+	b.setOnClickListener(this);
+	onClick(findViewById(R.id.previous));
+
+
+
+}

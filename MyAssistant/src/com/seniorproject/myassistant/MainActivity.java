@@ -36,12 +36,24 @@ public class MainActivity extends TabActivity {
         
         mTabHost.addTab(spec);
         
+        intent = new Intent(this, CalendarSyncAdapterActivity.class);
+        spec = mTabHost.newTabSpec(" Calendar syncAdap").setIndicator("Calendar SyncAdap").setContent(intent);
+        
+        mTabHost.addTab(spec);
+        
         //Duplicate the same for other tabs here
         
-        intent = new Intent(this, ServiceVolumeActivity.class);
+        intent = new Intent(this, ShowLocationActivity.class);
         spec = mTabHost.newTabSpec(" Location base service").setIndicator("Location base service").setContent(intent);
         
         mTabHost.addTab(spec);
+        
+        intent = new Intent(this, ContactListActivity.class);
+        spec = mTabHost.newTabSpec(" Contact List").setIndicator("Contact List").setContent(intent);
+        
+        mTabHost.addTab(spec);
+        
+      
     }
 
 

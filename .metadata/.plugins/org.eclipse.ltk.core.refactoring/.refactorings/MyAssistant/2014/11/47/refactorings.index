@@ -1,0 +1,7 @@
+1416356787336	Rename type 'LocationBaseServiceActivity'
+1416362470297	Rename field 'longitudeField'
+1416362500318	Rename field 'latituteField'
+1416362513385	Rename field 'locationManager'
+1416362521109	Rename field 'provider'
+1416362824606	Rename field 'm_locationManager'
+1416674697517	Rename type 'contactListActivity'

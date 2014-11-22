@@ -36,10 +36,11 @@ public class MainActivity extends TabActivity {
         
         mTabHost.addTab(spec);
         
-        intent = new Intent(this, CalendarSyncAdapterActivity.class);
+       /* intent = new Intent(this, CalendarSyncAdapterActivity.class);
         spec = mTabHost.newTabSpec(" Calendar syncAdap").setIndicator("Calendar SyncAdap").setContent(intent);
         
         mTabHost.addTab(spec);
+        */
         
         //Duplicate the same for other tabs here
         

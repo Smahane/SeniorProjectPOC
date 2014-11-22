@@ -1,6 +1,5 @@
 package com.seniorproject.myassistant;
 
-
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -17,20 +16,23 @@ public class ContactListActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_contact_list);
-		
-		//Get list of contact on the phone
-		Cursor people = getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);  
-		
+
+		// Get list of contact on the phone
+		Cursor people = getContentResolver().query(
+				ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+
 		ArrayList<String> contactList = new ArrayList<String>();
-		
-		while (people.moveToNext()){
+
+		while (people.moveToNext()) {
 			int nameIndex = people.getColumnIndex(PhoneLookup.DISPLAY_NAME);
 			String name = people.getString(nameIndex);
-			
+
 			contactList.add(name);
 		}
-			ListView dropdown = (ListView)findViewById(R.id.listContactList);
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, contactList);
-			dropdown.setAdapter(adapter);
-		}
+		ListView dropdown = (ListView) findViewById(R.id.listContactList);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, android.R.id.text1,
+				contactList);
+		dropdown.setAdapter(adapter);
+	}
 }

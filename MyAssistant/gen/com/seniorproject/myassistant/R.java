@@ -1107,7 +1107,6 @@ containing a value of this type.
         public static final int checkbox=0x7f05002d;
         public static final int collapseActionView=0x7f05000d;
         public static final int data=0x7f05003c;
-        public static final int data2=0x7f05003f;
         public static final int default_activity_button=0x7f050028;
         public static final int dialog=0x7f05000e;
         public static final int disableHome=0x7f050008;
@@ -1124,6 +1123,7 @@ containing a value of this type.
         public static final int linearLayout1=0x7f050045;
         public static final int linearLayout2=0x7f050048;
         public static final int linearLayout3=0x7f05004b;
+        public static final int listCalendarEvents=0x7f05003f;
         public static final int listContactList=0x7f050041;
         public static final int listMode=0x7f050001;
         public static final int list_item=0x7f050029;

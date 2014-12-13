@@ -1,0 +1,5 @@
+package com.seniorproject.sqlitedatabase;
+
+public class DatabaseHelper {
+
+}

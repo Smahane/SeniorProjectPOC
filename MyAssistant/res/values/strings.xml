@@ -5,5 +5,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="Change_Mode">Change Mode</string>
-
+     <string name="fileName">fileName</string>
+    <string name="contacts_title">contacts_title</string>
+    
+    
 </resources>

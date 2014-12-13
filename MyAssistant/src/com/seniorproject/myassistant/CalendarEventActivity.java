@@ -30,8 +30,7 @@ public class CalendarEventActivity extends Activity implements
 			CalendarContract.Events.TITLE, CalendarContract.Events.DTSTART };
 
 	public void onClick(DialogInterface dialog, int which) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	// Populate the database cursor
@@ -40,11 +39,18 @@ public class CalendarEventActivity extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_calendar_event);
 
-		mCursor = getContentResolver().query(
-
-		CalendarContract.Events.CONTENT_URI, COLS, null, null, null);
+		mCursor = getContentResolver().query(CalendarContract.Events.CONTENT_URI, COLS, null, null, null);
 		mCursor.moveToFirst();
+		int numOfElementofCursor = mCursor.getCount();
+		String calendars = CalendarContract.Events.ACCOUNT_NAME;
+		String calendar6 = CalendarContract.Events.CALENDAR_DISPLAY_NAME;
+		String calendar1 = CalendarContract.Events.ACCOUNT_TYPE.toString();
+		String calendar2 = CalendarContract.Events._COUNT.toString();
+		String calendar3 = CalendarContract.Events.CALENDAR_COLOR.toString();
 
+		
+				
+				
 		Button b = (Button) findViewById(R.id.next);
 
 		b.setOnClickListener((android.view.View.OnClickListener) this);
@@ -62,6 +68,7 @@ public class CalendarEventActivity extends Activity implements
 		while (mCursor.moveToNext()) {
 
 			boolean islast = mCursor.isLast();
+			
 			if (mCursor == null || islast == true) {
 				break;
 			}
@@ -82,8 +89,9 @@ public class CalendarEventActivity extends Activity implements
 			String contentToDispay = name + " on " + df.format(dateTime)
 					+ " at " + tf.format(dateTime);
 
-			Collections.sort(CalendarEvents, String.CASE_INSENSITIVE_ORDER);
 			CalendarEvents.add(contentToDispay);
+			Collections.sort(CalendarEvents, String.CASE_INSENSITIVE_ORDER);
+			
 		}
 
 		ListView dropdown = (ListView) findViewById(R.id.listCalendarEvents);

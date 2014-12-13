@@ -1,0 +1,107 @@
+package com.seniorproject.sqlitedatabase;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.BaseColumns;
+import android.util.Log;
+
+
+public class DatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
+
+		private static final String COLUMN_KEY = "key";
+		private static final String COLUMN_TIMESTAMP = "timestamp";
+		private static final String COLUMN_VALUE = "value";
+		private static final String DATABASE_NAME = "simplecache.db";
+		private static final int DATABASE_VERSION = 1;
+		private static final String TABLE_NAME = "simplecache";
+		
+		private static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME +
+				" (" +
+				_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + 
+				COLUMN_KEY + " TEXT UNIQUE NOT NULL, " +
+				COLUMN_VALUE + " TEXT NOT NULL, " +
+				COLUMN_TIMESTAMP + " INTEGER NOT NULL" +
+				");";
+		
+		public DatabaseHelper(Context context) {
+			super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		}
+
+		@Override
+		public void onCreate(SQLiteDatabase db) {
+			db.execSQL(CREATE_TABLE);
+		}
+
+		@Override
+		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+			onCreate(db);
+		}
+		
+		public SimpleCache loadSimpleCache(String key) {
+			final SQLiteDatabase db;
+			try {
+				db = getReadableDatabase();
+			} catch (SQLiteException e) {
+				Log.w(SimpleCache.class.getName(), "Failed to get readable database: " + e.getMessage());
+				return null;
+			}
+			
+			String[] columns = new String[] {COLUMN_KEY, COLUMN_VALUE, COLUMN_TIMESTAMP};
+			String selection = COLUMN_KEY + "=?";
+			
+			Cursor cursor = null;
+			try {
+				cursor = db.query(TABLE_NAME, columns, selection, new String[] {key}, null, null, null);
+				if (cursor == null) {
+					return null;
+				}
+				
+				if (!cursor.moveToFirst()) {
+					cursor.close();
+					return null;
+				}
+				
+				String returnedKey = cursor.getString(cursor.getColumnIndex(COLUMN_KEY));
+				String returnedValue = cursor.getString(cursor.getColumnIndex(COLUMN_VALUE));
+				long returnedTimestamp = cursor.getLong(cursor.getColumnIndex(COLUMN_TIMESTAMP));
+				cursor.close();
+				return new SimpleCache(returnedKey, returnedValue, returnedTimestamp);
+			} catch (SQLiteException e) {
+				Log.w(SimpleCache.class.getName(), "Failed to get readable database: " + e.getMessage());
+				return null;
+			} finally {
+				if (cursor != null) {
+					cursor.close();
+				}
+				db.close();
+			}
+		}
+		
+		public boolean replaceSimpleCache(SimpleCache simpleCache) {
+			final SQLiteDatabase db;
+			try {
+				db = getWritableDatabase();
+			} catch (SQLiteException e) {
+				Log.w(SimpleCache.class.getName(), "Failed to get writeable database: " + e.getMessage());
+				return false;
+			}
+			
+			ContentValues cv = new ContentValues();
+			cv.put(COLUMN_KEY, simpleCache.mKey);
+			cv.put(COLUMN_VALUE, simpleCache.mValue);
+			cv.put(COLUMN_TIMESTAMP, simpleCache.mTimestamp);
+			
+			boolean result = db.replace(TABLE_NAME, null, cv) != -1;
+			db.close();
+			return result;
+		}
+	}
+}
+
+
+}

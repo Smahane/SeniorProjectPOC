@@ -15,7 +15,7 @@ public class MainActivity extends TabActivity {
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);   
         setContentView(R.layout.activity_main);
         
         mTabHost = getTabHost();
@@ -51,6 +51,11 @@ public class MainActivity extends TabActivity {
         
         intent = new Intent(this, ContactListActivity.class);
         spec = mTabHost.newTabSpec(" Contact List").setIndicator("Contact List").setContent(intent);
+        
+        mTabHost.addTab(spec);
+        
+        intent = new Intent(this, DisplayDatabaseContentActivity.class);
+        spec = mTabHost.newTabSpec(" DataBase").setIndicator("DataBase").setContent(intent);
         
         mTabHost.addTab(spec);
         

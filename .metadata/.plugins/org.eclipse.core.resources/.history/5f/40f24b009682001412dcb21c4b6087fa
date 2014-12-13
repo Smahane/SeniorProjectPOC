@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+02	    xmlns:tools="http://schemas.android.com/tools"
+03	    android:layout_width="match_parent"
+04	    android:layout_height="match_parent"
+05	    tools:context=".MainActivity" >
+06	     
+07	    <TableRow
+08	        android:id="@+id/tableRow1"
+09	        android:layout_width="match_parent"
+10	        android:layout_height="wrap_content"
+11	        android:background="#000000" >
+12	 
+13	        <TextView
+14	            android:id="@+id/contactsTitleTextView"
+15	            android:layout_width="wrap_content"
+16	            android:layout_height="wrap_content"
+17	            android:layout_marginLeft="@dimen/padding_5dp"
+18	            android:text="@string/contacts_title"
+19	            android:textAppearance="?android:attr/textAppearanceLarge"
+20	            android:textColor="#FFFFFF"
+21	            android:layout_weight="1"/>
+22	 
+23	        <Button
+24	            android:id="@+id/button1"
+25	            android:background="#444444"
+26	            android:onClick="showAddContact"
+27	            android:text="@string/add_button"
+28	            android:textColor="#FFFFFF"
+29	            android:textSize="20sp" />
+30	 
+31	    </TableRow>
+32	     <TableRow
+33	        android:id="@+id/tableRow2"
+34	        android:layout_width="match_parent"
+35	        android:layout_height="wrap_content" >
+36	 
+37	    <ListView
+38	         android:id="@android:id/list"
+39	         android:layout_width="match_parent"
+40	         android:layout_height="wrap_content"
+41	         android:layout_weight="1">
+42	     </ListView>
+43	     </TableRow>
+44	 
+45	</TableLayout>
+- See more at: http://www.newthinktank.com/2013/06/android-development-tutorial-10/#sthash.ftwS91TM.dpuf

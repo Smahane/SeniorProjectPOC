@@ -1,0 +1,75 @@
+package com.seniorproject.myassistant;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import android.app.Activity;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.ContactsContract;
+import android.provider.ContactsContract.PhoneLookup;
+import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+public class ContactListActivity extends Activity {
+
+	private String contactName;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_contact_list);
+
+		// Get list of contact on the phone
+		Cursor people = getContentResolver().query(
+				ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+
+		ArrayList<String> contactList = new ArrayList<String>();
+
+		while (people.moveToNext()) {
+			int nameIndex = people.getColumnIndex(PhoneLookup.DISPLAY_NAME);
+			contactName = people.getString(nameIndex);
+			int phoneIdx = people.getColumnIndex(PhoneLookup.NUMBER);
+			String phoneNumber = people.getString(phoneIdx);
+
+			contactList.add(contactName);
+			Collections.sort(contactList, String.CASE_INSENSITIVE_ORDER);
+
+		}
+		ListView dropdown = (ListView) findViewById(R.id.listContactList);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, android.R.id.text1,
+				contactList);
+		dropdown.setAdapter(adapter);
+
+		// get Json folder path
+		File jsonFolder = new File(Environment.getExternalStorageDirectory(),
+				"jason_folder");
+
+		// Create JSON folder if it doesn't exist
+		if (!jsonFolder.exists()) {
+			jsonFolder.mkdir();
+		}
+		
+		JSONObject jsonObject = new JSONObject();
+		JSONArray jsonArray = new JSONArray();
+		
+		//add each contact name to the JSON object
+		try{
+			for (String string : contactList) {
+				JSONObject jsonObj = new JSONObject();
+				jsonObj.put("ContactName", contactName);
+			}
+			
+		
+		
+		
+		
+	}
+}

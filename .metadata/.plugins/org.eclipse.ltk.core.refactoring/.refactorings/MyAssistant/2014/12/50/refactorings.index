@@ -1,3 +1,5 @@
 1418224982806	Rename local variable 'people'
 1418438068868	Rename local variable 'query'
 1418453467046	Rename resource 'database_output.xml'
+1418487195569	Delete element
+1418487877999	Rename local variable 'readFromExternalStorage'

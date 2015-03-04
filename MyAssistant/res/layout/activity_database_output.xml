@@ -19,8 +19,7 @@
             android:text="@string/contacts_title"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF" />
-        
-        
+
         <Button
             android:id="@+id/button1"
             android:background="#444444"
@@ -42,6 +41,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" >
         </ListView>
+        
+
     </TableRow>
+    
+    
 
 </TableLayout>

@@ -1,9 +1,13 @@
 package com.seniorproject.myassistant;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -12,20 +16,21 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.seniorproject.sqlitedatabase.DatabaseHelper;
-
 import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
-import android.provider.ContactsContract.PhoneLookup;
-import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+
+import com.seniorproject.sqlitedatabase.DatabaseHelper;
 
 public class ContactListActivity extends Activity {
 
@@ -74,9 +79,6 @@ public class ContactListActivity extends Activity {
 		File jsonFolder = new File(Environment.getExternalStorageDirectory(),
 				"jason_folder");
 
-		// File jsonFolder = new File(getApplicationContext().getFilesDir(),
-		// "jasonFolder");
-
 		// Create JSON folder if it doesn't exist
 		if (!jsonFolder.exists()) {
 			jsonFolder.mkdirs();
@@ -109,7 +111,38 @@ public class ContactListActivity extends Activity {
 			e.printStackTrace();
 		}
 
+		// Read data from Json file
+
+		/*
+		Button readFromJsonDile = (Button) findViewById(R.id.getJasonFile);
+		readFromJsonDile.setOnClickListener((OnClickListener) this);
+		*/
+
 	}
+
+	/*public void onClick(View v) {
+
+		String filepath = Environment.getExternalStorageDirectory().getPath();
+		ContextWrapper contextWrapper = new ContextWrapper(
+				getApplicationContext());
+		File directory = contextWrapper.getDir(filepath, Context.MODE_PRIVATE);
+		File myExternalFile = new File(getExternalFilesDir(filepath),
+				"jsonFile.txt");
+		String dataInJson = "";
+		try {
+			FileInputStream fis = new FileInputStream(myExternalFile);
+			DataInputStream in = new DataInputStream(fis);
+			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			String strLine;
+			while ((strLine = br.readLine()) != null) {
+				dataInJson = dataInJson + strLine;
+			}
+			in.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	*/
 
 	public void addContact(View view) {
 
